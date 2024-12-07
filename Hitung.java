@@ -7,63 +7,77 @@ public class Hitung{
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         /* Pekerjaan anda mulai dari sini */
-        String input;
+        static double hitungRataRata() {
+        int total = 0;
+        for (int nilai : nilaiList) {
+            total += nilai;
+        }
+        return (double) total / nilaiList.size();
+    }
 
-        // Mengisi ArrayList dengan angka dari user
-        System.out.println("Masukkan angka (ketik 'T' untuk selesai):");
+    //method nyari nilai minimal
+    static int hitungNilaiMinimal() {
+        int nilaiMin = nilaiList.get(0); //manggil index ke 0
+        for (int nilai : nilaiList) {
+            if (nilai < nilaiMin) { //bandingin nilai per index
+                nilaiMin = nilai;
+            }
+        }
+        return nilaiMin;
+    }
+
+    //method nyari nilai maksimal
+    static int hitungNilaiMaksimal() {
+        int nilaiMax = nilaiList.get(0); //manggil index ke 0
+        for (int nilai : nilaiList) { 
+            if (nilai > nilaiMax) { //bandingin nilai per index
+                nilaiMax = nilai; 
+            }
+        }
+        return nilaiMax; 
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        int nilai;
+
         while (true) {
+            System.out.print("Masukkan nilai (atau pilih 'T' untuk selesai): ");
             input = scanner.nextLine();
+
             if (input.equalsIgnoreCase("T")) {
                 break;
-            }
-            try {
-                int number = Integer.parseInt(input);
-                numbers.add(number);
-            } catch (NumberFormatException e) {
-                System.out.println("Input tidak valid, silakan masukkan angka atau 'T' untuk selesai.");
+            } else {
+                // Mengecek apakah input adalah angka
+                if (isNumeric(input)) {
+                    nilai = Integer.parseInt(input);
+                    nilaiList.add(nilai); //masukin nilai yang diinput user ke dalam arraylist
+                } else {
+                    System.out.println("Input tidak valid, coba lagi.");
+                }
             }
         }
 
-        // Menghitung dan menampilkan nilai minimal, maksimal, dan rata-rata
-        if (!numbers.isEmpty()) {
-            System.out.println("Nilai minimal: " + findMin());
-            System.out.println("Nilai maksimal: " + findMax());
-            System.out.println("Nilai rata-rata: " + calculateAverage());
+        if (nilaiList.size() > 0) {
+            System.out.println("Nilai minimal: " + hitungNilaiMinimal());
+            System.out.println("Nilai maksimal: " + hitungNilaiMaksimal());
+            System.out.println("Nilai rata-rata: " + hitungRataRata());
         } else {
-            System.out.println("Tidak ada angka yang dimasukkan.");
+            System.out.println("Tidak ada nilai yang dimasukkan.");
         }
 
         scanner.close();
     }
 
-    // Fungsi untuk menghitung nilai minimal
-    public static int findMin() {
-        int min = numbers.get(0);
-        for (int num : numbers) {
-            if (num < min) {
-                min = num;
-            }
+    public static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str); // Coba mengonversi string ke integer
+            return true;  // Jika berhasil, berarti ini angka
+        } catch (NumberFormatException e) {
+            return false;  // Kalau gagal, berarti bukan angka
         }
-        return min;
-    }
-
-    // Fungsi untuk menghitung nilai maksimal
-    public static int findMax() {
-        int max = numbers.get(0);
-        for (int num : numbers) {
-            if (num > max) {
-                max = num;
-            }
-        }
-        return max;
-    }
-
-    // Fungsi untuk menghitung nilai rata-rata
-    public static double calculateAverage() {
-        int sum = 0;
-        for (int num : numbers) {
-            sum += num;
-        }
-        return (double) sum / numbers.size();
     }
 }
+
+        
