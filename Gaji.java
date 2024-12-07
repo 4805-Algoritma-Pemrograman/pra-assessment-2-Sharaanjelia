@@ -9,25 +9,7 @@ public class Gaji{
         int jamLembur = input.nextInt();
 
         /* Pekerjaan anda mulai dari sini */
-     int gajiPokok = hitungGaji();
-        int uangLembur = hitungUangLembur(jamLembur);
-        
-        // Menghitung total gaji
-        int totalGaji = gajiPokok + uangLembur;
-
-        // Menampilkan hasil
-        System.out.println("Gaji Pokok: " + gajiPokok);
-        System.out.println("Uang Lembur: " + uangLembur);
-        System.out.println("Total Gaji: " + totalGaji);
-     
-        System.out.println("Jumlah metode: " + Gaji.class.getDeclaredMethods().length);
-        System.out.println("Jumlah field: " + Gaji.class.getDeclaredFields().length);
-        
-        input.close();
-    }
-
-    // Fungsi untuk menghitung gaji pokok
-    public static int hitungGaji() {
+     public static int hitungGaji() {
         if (masaKerja < 5) {
             return 5000000;
         } else if (masaKerja >= 5 && masaKerja <= 10) {
@@ -37,19 +19,45 @@ public class Gaji{
         }
     }
 
-    // Fungsi untuk menghitung uang lembur
-    public static int hitungUangLembur(int jamLembur) {
-        int uangLemburPerJam;
+    public static int hitungUangLembur(int jumlahJamLembur) {
+        int honorPerJam;
         if (masaKerja < 5) {
-            uangLemburPerJam = 40000;
+            honorPerJam = 40000;
         } else if (masaKerja >= 5 && masaKerja <= 10) {
-            uangLemburPerJam = 50000;
+            honorPerJam = 50000;
         } else {
-            uangLemburPerJam = 75000;
+            honorPerJam = 75000;
         }
-        return jamLembur * uangLemburPerJam;
+        return honorPerJam * jumlahJamLembur;
+        // 50000 * 6 = 300000
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Masukkan masa kerja (dalam tahun): ");
+        masaKerja = scanner.nextInt();
+        // 5
+
+        System.out.print("Masukkan jumlah jam lembur: ");
+        int jumlahJamLembur = scanner.nextInt();
+        // 6
+
+        int gaji = hitungGaji();
+        // 7500000
+        int uangLembur = hitungUangLembur(jumlahJamLembur);
+        // 300000
+
+        int totalGaji = gaji + uangLembur;
+        // 7800000
+
+        System.out.println("Gaji pokok: " + gaji);
+        System.out.println("Uang lembur: " + uangLembur);
+        System.out.println("Total gaji: " + totalGaji);
+        
     }
 }
+     
         /* Pekerjaan anda berakhir sini */
         System.out.println(Gaji.class.getDeclaredMethods().length);
         System.out.println(Gaji.class.getDeclaredFields().length);
